@@ -10,6 +10,9 @@ export class TemplateComponent implements OnInit {
   // Default value for ngModel
   usuario: any = {
     nombre: '',
+    apellido: '',
+    email: '',
+    pais: '',
   };
   paises: any[] = [];
   constructor(private _paisesService: PaisService) {}
@@ -22,6 +25,7 @@ export class TemplateComponent implements OnInit {
     if (templateForm.invalid) {
       // iterate each form control and chek if it's invalid
       Object['values'](templateForm.controls).map((control) => {
+        console.log(control);
         if (control.invalid) {
           control.markAsTouched();
         }
@@ -31,8 +35,13 @@ export class TemplateComponent implements OnInit {
 
   getPaises() {
     this._paisesService.getPaises().subscribe(
-      (data) => {
-        console.log(data);
+      (paises) => {
+        console.log(paises);
+        this.paises = paises;
+        this.paises.unshift({
+          name: '[Seleccione un pais]',
+          code: '',
+        });
       },
       (err) => {
         console.log(err);

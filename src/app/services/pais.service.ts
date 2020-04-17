@@ -12,11 +12,12 @@ export class PaisService {
     const url: string = 'https://restcountries.eu/rest/v2/lang/es';
     return this.http.get(url).pipe(
       //Using map operator to transform the response
-      map((paises: any[]) => {
-        paises.map((pais) => {
-          return { name: pais.name, code: pais.alpha3Code };
-        });
-      })
+      map((paises: any[]) =>
+        paises.map((pais) => ({
+          name: pais.name,
+          code: pais.alpha3Code,
+        }))
+      )
     );
   }
 }

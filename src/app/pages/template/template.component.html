@@ -18,7 +18,7 @@
                 <label class="col-2 col-form-label">Apellido</label>
                 <div class="col-8">
 
-                    <input class="form-control" type="text" name="apellido" ngModel #apellido="ngModel" minlength="5" [class.is-invalid]="apellido.invalid && apellido.touched" placeholder="Apellido" required>
+                    <input class="form-control" type="text" name="apellido" [ngModel]="usuario.apellido" #apellido="ngModel" minlength="5" [class.is-invalid]="apellido.invalid && apellido.touched" placeholder="Apellido" required>
                     <div class="invalid-feedback">
                         Por favor, ingrese un apellido válido.
                     </div>
@@ -31,9 +31,21 @@
             <label class="col-2 col-form-label">Correo</label>
             <div class="col-8">
 
-                <input class="form-control" type="email" name="email" ngModel #email="ngModel" [class.is-invalid]="email.invalid && email.touched" placeholder="Correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                <input class="form-control" type="email" name="email" [ngModel]="usuario.email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" placeholder="Correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                 <div class="invalid-feedback">
                     Por favor, ingrese un email válido.
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Pais</label>
+            <div class="col-8">
+                <select class="form-control" name="pais" [ngModel]="usuario.pais" #pais="ngModel" [class.is-invalid]="pais.invalid && pais.touched" [disabled]="paises.length===0" required>
+                <option *ngFor="let pais of paises" [value]="pais.code">{{pais.name}}</option>
+              </select>
+                <div class="invalid-feedback">
+                    Por favor, ingrese un país.
                 </div>
             </div>
         </div>
