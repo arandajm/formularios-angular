@@ -6,7 +6,11 @@
             <div class="form-group row">
                 <label class="col-2 col-form-label">Nombre</label>
                 <div class="col-8">
-                    <input class="form-control" type="text" name="nombre" ngModel placeholder="Nombre" required>
+                    <!-- [ngModel] => Receive a value                   -->
+                    <input class="form-control" type="text" name="nombre" [ngModel]="usuario.nombre" #nombre="ngModel" minlength="5" [class.is-invalid]="nombre.invalid && nombre.touched" placeholder="Nombre" required>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese un nombre válido.
+                    </div>
                 </div>
             </div>
 
@@ -14,7 +18,10 @@
                 <label class="col-2 col-form-label">Apellido</label>
                 <div class="col-8">
 
-                    <input class="form-control" type="text" placeholder="Apellido">
+                    <input class="form-control" type="text" name="apellido" ngModel #apellido="ngModel" minlength="5" [class.is-invalid]="apellido.invalid && apellido.touched" placeholder="Apellido" required>
+                    <div class="invalid-feedback">
+                        Por favor, ingrese un apellido válido.
+                    </div>
                 </div>
             </div>
 
@@ -24,7 +31,10 @@
             <label class="col-2 col-form-label">Correo</label>
             <div class="col-8">
 
-                <input class="form-control" type="email" placeholder="Correo electrónico">
+                <input class="form-control" type="email" name="email" ngModel #email="ngModel" [class.is-invalid]="email.invalid && email.touched" placeholder="Correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                <div class="invalid-feedback">
+                    Por favor, ingrese un email válido.
+                </div>
             </div>
         </div>
 

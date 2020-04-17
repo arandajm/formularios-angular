@@ -6,12 +6,22 @@ import { NgForm } from '@angular/forms';
   templateUrl: './template.component.html',
 })
 export class TemplateComponent implements OnInit {
+  // Default value for ngModel
+  usuario: any = {
+    nombre: '',
+  };
   constructor() {}
 
   ngOnInit(): void {}
 
   guardar(templateForm: NgForm) {
-    console.log(templateForm.value);
-    console.log('Guardando cambios...');
+    if (templateForm.invalid) {
+      // iterate each form control and chek if it's invalid
+      Object['values'](templateForm.controls).map((control) => {
+        if (control.invalid) {
+          control.markAsTouched();
+        }
+      });
+    }
   }
 }
