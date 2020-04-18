@@ -30,7 +30,9 @@ export class TemplateComponent implements OnInit {
           control.markAsTouched();
         }
       });
+      return;
     }
+    console.log(templateForm.value);
   }
 
   getPaises() {
