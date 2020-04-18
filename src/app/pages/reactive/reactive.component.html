@@ -9,7 +9,10 @@
                 <label class="col-2 col-form-label">Nombre</label>
                 <div class="col-8">
 
-                    <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+                    <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese un nombre válido.
+                    </div>
                 </div>
             </div>
 
@@ -17,7 +20,10 @@
                 <label class="col-2 col-form-label">Apellido</label>
                 <div class="col-8">
 
-                    <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
+                    <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="apellidoNoValido">
+                    <div class="invalid-feedback">
+                        Por favor, ingrese un apellido válido.
+                    </div>
                 </div>
             </div>
 
@@ -27,7 +33,10 @@
             <label class="col-2 col-form-label">Correo</label>
             <div class="col-8">
 
-                <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="email">
+                <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="email" [class.is-invalid]="emailNoValido">
+                <div class="invalid-feedback">
+                    Por favor, ingrese un email válido.
+                </div>
             </div>
         </div>
 

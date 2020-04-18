@@ -24,8 +24,39 @@ export class ReactiveComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
     });
   }
+  // Define getters
+  get nombreNoValido() {
+    return (
+      this.reactiveForm.get('nombre').invalid &&
+      this.reactiveForm.get('nombre').touched
+    );
+  }
+
+  get apellidoNoValido() {
+    return (
+      this.reactiveForm.get('apellido').invalid &&
+      this.reactiveForm.get('apellido').touched
+    );
+  }
+
+  get emailNoValido() {
+    return (
+      this.reactiveForm.get('email').invalid &&
+      this.reactiveForm.get('email').touched
+    );
+  }
 
   guardar() {
+    if (this.reactiveForm.invalid) {
+      // iterate each form control and chek if it's invalid
+      Object['values'](this.reactiveForm.controls).map((control) => {
+        console.log(control);
+        if (control.invalid) {
+          control.markAsTouched();
+        }
+      });
+      return;
+    }
     console.log(this.reactiveForm.value);
   }
 }
