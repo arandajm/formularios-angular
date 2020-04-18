@@ -22,6 +22,11 @@ export class ReactiveComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
+      // FormGroupName => nested objects
+      direccion: this.fb.group({
+        distrito: ['', Validators.required],
+        ciudad: ['', Validators.required],
+      }),
     });
   }
   // Define getters
