@@ -43,4 +43,15 @@
         </div>
 
     </form>
+
+    <hr>
+    <pre>
+      Estado del formulario {{ reactiveForm.valid }}
+      <br>
+      Status: {{ reactiveForm.status }}
+    </pre>
+
+    <pre>
+      {{reactiveForm.value | json}}
+    </pre>
 </div>
