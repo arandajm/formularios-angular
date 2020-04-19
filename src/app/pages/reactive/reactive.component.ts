@@ -92,6 +92,16 @@ export class ReactiveComponent implements OnInit {
     });
   }
 
+  agregarPasatiempo() {
+    this.pasatiempos.push(
+      this.fb.control('Nuevo elemento', Validators.required)
+    );
+  }
+
+  borrarPasatiempo(i: number) {
+    this.pasatiempos.removeAt(i);
+  }
+
   guardar() {
     if (this.reactiveForm.invalid) {
       // iterate each form control and chek if it's invalid
