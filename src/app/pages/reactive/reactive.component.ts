@@ -16,6 +16,7 @@ export class ReactiveComponent implements OnInit {
   ) {
     this.createForm();
     this.cargarFormulario();
+    this.crearListeners();
   }
 
   ngOnInit(): void {}
@@ -131,6 +132,14 @@ export class ReactiveComponent implements OnInit {
       },
       pasatiempos: [],
     });
+  }
+
+  crearListeners() {
+    // this.reactiveForm.valueChanges.subscribe((form) => console.log(form));
+    // this.reactiveForm.statusChanges.subscribe((form) => console.log(form));
+    this.reactiveForm
+      .get('nombre')
+      .valueChanges.subscribe((value) => console.log(value));
   }
 
   agregarPasatiempo() {

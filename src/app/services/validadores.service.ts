@@ -35,6 +35,10 @@ export class ValidadoresService {
   existeUsuario(
     control: FormControl
   ): Promise<ErrorValid> | Observable<ErrorValid> {
+    if (!control.value) {
+      return Promise.resolve(null);
+    }
+
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (control.value === 'strider') {
