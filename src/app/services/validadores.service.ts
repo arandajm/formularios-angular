@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+
+interface ErrorValid {
+  [s: string]: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ValidadoresService {
   constructor() {}
 
-  noAranda(control: FormControl): { [s: string]: boolean } {
+  noAranda(control: FormControl): ErrorValid {
     console.log(control);
     if (control.value?.toLowerCase() === 'aranda') {
       return { noAranda: true };
@@ -25,5 +30,19 @@ export class ValidadoresService {
         pass2Control.setErrors({ noesIgual: true });
       }
     };
+  }
+
+  existeUsuario(
+    control: FormControl
+  ): Promise<ErrorValid> | Observable<ErrorValid> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (control.value === 'strider') {
+          resolve({ existeUsuario: true });
+        } else {
+          resolve(null);
+        }
+      }, 3500);
+    });
   }
 }

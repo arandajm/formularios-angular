@@ -70,6 +70,13 @@ export class ReactiveComponent implements OnInit {
     return pass1 === pass2 ? false : true;
   }
 
+  get usuarioNoValido() {
+    return (
+      this.reactiveForm.get('usuario').invalid &&
+      this.reactiveForm.get('usuario').touched
+    );
+  }
+
   // Define a getter to get the pasatiempos in the form
   get pasatiempos() {
     return this.reactiveForm.get('pasatiempos') as FormArray;
@@ -90,6 +97,7 @@ export class ReactiveComponent implements OnInit {
           ],
         ],
         email: ['', [Validators.required, Validators.email]],
+        usuario: ['', , this._validadorService.existeUsuario],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
         // FormGroupName => nested objects
@@ -114,6 +122,7 @@ export class ReactiveComponent implements OnInit {
       nombre: 'Jesus',
       apellido: 'Aranda',
       email: 'jesus.aranda@g.com',
+      usuario: '',
       pass1: '',
       pass2: '',
       direccion: {
