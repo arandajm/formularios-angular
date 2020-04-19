@@ -51,16 +51,36 @@ export class ReactiveComponent implements OnInit {
     );
   }
 
+  get distritoNoValido() {
+    return (
+      this.reactiveForm.get('direccion.distrito').invalid &&
+      this.reactiveForm.get('direccion.distrito').touched
+    );
+  }
+
+  get ciudadNoValido() {
+    return (
+      this.reactiveForm.get('direccion.ciudad').invalid &&
+      this.reactiveForm.get('direccion.ciudad').touched
+    );
+  }
+
   guardar() {
     if (this.reactiveForm.invalid) {
       // iterate each form control and chek if it's invalid
-      Object['values'](this.reactiveForm.controls).map((control) => {
-        console.log(control);
-        if (control.invalid) {
-          control.markAsTouched();
+      return Object['values'](this.reactiveForm.controls).map((control) => {
+        if (control instanceof FormGroup) {
+          Object['values'](control.controls).map((control) => {
+            if (control.invalid) {
+              control.markAsTouched();
+            }
+          });
+        } else {
+          if (control.invalid) {
+            control.markAsTouched();
+          }
         }
       });
-      return;
     }
     console.log(this.reactiveForm.value);
   }

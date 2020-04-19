@@ -44,10 +44,10 @@
             <label class="col-2 col-form-label">Direccion</label>
             <div class="form-row col">
                 <div class="col">
-                    <input class="form-control" type="text" placeholder="Distrito" formControlName="distrito">
+                    <input class="form-control" type="text" placeholder="Distrito" formControlName="distrito" [class.is-invalid]="distritoNoValido">
                 </div>
                 <div class="col">
-                    <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad">
+                    <input class="form-control" type="text" placeholder="Ciudad" formControlName="ciudad" [class.is-invalid]="ciudadNoValido">
                 </div>
             </div>
         </div>
