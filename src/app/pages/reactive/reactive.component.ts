@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -52,6 +52,11 @@ export class ReactiveComponent implements OnInit {
     );
   }
 
+  // Define a getter to get the pasatiempos in the form
+  get pasatiempos() {
+    return this.reactiveForm.get('pasatiempos') as FormArray;
+  }
+
   createForm() {
     this.reactiveForm = this.fb.group({
       // Define form field and their validations
@@ -64,6 +69,8 @@ export class ReactiveComponent implements OnInit {
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required],
       }),
+      // Define control array
+      pasatiempos: this.fb.array([]),
     });
   }
 
@@ -81,6 +88,7 @@ export class ReactiveComponent implements OnInit {
         distrito: 'Otario',
         ciudad: 'Otawa',
       },
+      pasatiempos: [],
     });
   }
 
