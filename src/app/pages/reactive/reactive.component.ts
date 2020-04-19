@@ -11,24 +11,11 @@ export class ReactiveComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.createForm();
+    this.cargarFormulario();
   }
 
   ngOnInit(): void {}
 
-  createForm() {
-    this.reactiveForm = this.fb.group({
-      // Define form field and their validations
-      // Initial value, [sync validators], async validators
-      nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', [Validators.required, Validators.minLength(5)]],
-      email: ['', [Validators.required, Validators.email]],
-      // FormGroupName => nested objects
-      direccion: this.fb.group({
-        distrito: ['', Validators.required],
-        ciudad: ['', Validators.required],
-      }),
-    });
-  }
   // Define getters
   get nombreNoValido() {
     return (
@@ -65,6 +52,38 @@ export class ReactiveComponent implements OnInit {
     );
   }
 
+  createForm() {
+    this.reactiveForm = this.fb.group({
+      // Define form field and their validations
+      // Initial value, [sync validators], async validators
+      nombre: ['', [Validators.required, Validators.minLength(5)]],
+      apellido: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.required, Validators.email]],
+      // FormGroupName => nested objects
+      direccion: this.fb.group({
+        distrito: ['', Validators.required],
+        ciudad: ['', Validators.required],
+      }),
+    });
+  }
+
+  resetearFormulario() {
+    this.reactiveForm.reset();
+  }
+
+  cargarFormulario() {
+    // If you use set Value, you have to specify all fields, but with reset only specify  their yout want
+    this.reactiveForm.setValue({
+      nombre: 'Jesus',
+      apellido: 'Aranda',
+      email: 'jesus.aranda@g.com',
+      direccion: {
+        distrito: 'Otario',
+        ciudad: 'Otawa',
+      },
+    });
+  }
+
   guardar() {
     if (this.reactiveForm.invalid) {
       // iterate each form control and chek if it's invalid
@@ -83,5 +102,6 @@ export class ReactiveComponent implements OnInit {
       });
     }
     console.log(this.reactiveForm.value);
+    this.resetearFormulario();
   }
 }
