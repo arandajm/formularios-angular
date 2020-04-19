@@ -56,33 +56,52 @@ export class ReactiveComponent implements OnInit {
     );
   }
 
+  get pass1NoValido() {
+    return (
+      this.reactiveForm.get('pass1').invalid &&
+      this.reactiveForm.get('pass1').touched
+    );
+  }
+
+  get pass2NoValido() {
+    const pass1 = this.reactiveForm.get('pass1').value;
+    const pass2 = this.reactiveForm.get('pass2').value;
+
+    return pass1 === pass2 ? false : true;
+  }
+
   // Define a getter to get the pasatiempos in the form
   get pasatiempos() {
     return this.reactiveForm.get('pasatiempos') as FormArray;
   }
 
   createForm() {
-    this.reactiveForm = this.fb.group({
-      // Define form field and their validations
-      // Initial value, [sync validators], async validators
-      nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          this._validadorService.noAranda,
+    this.reactiveForm = this.fb.group(
+      {
+        // Define form field and their validations
+        // Initial value, [sync validators], async validators
+        nombre: ['', [Validators.required, Validators.minLength(5)]],
+        apellido: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            this._validadorService.noAranda,
+          ],
         ],
-      ],
-      email: ['', [Validators.required, Validators.email]],
-      // FormGroupName => nested objects
-      direccion: this.fb.group({
-        distrito: ['', Validators.required],
-        ciudad: ['', Validators.required],
-      }),
-      // Define control array
-      pasatiempos: this.fb.array([]),
-    });
+        email: ['', [Validators.required, Validators.email]],
+        pass1: ['', Validators.required],
+        pass2: ['', Validators.required],
+        // FormGroupName => nested objects
+        direccion: this.fb.group({
+          distrito: ['', Validators.required],
+          ciudad: ['', Validators.required],
+        }),
+        // Define control array
+        pasatiempos: this.fb.array([]),
+      },
+      { validators: this._validadorService.passwordsIguales('pass1', 'pass2') }
+    );
   }
 
   resetearFormulario() {
@@ -95,6 +114,8 @@ export class ReactiveComponent implements OnInit {
       nombre: 'Jesus',
       apellido: 'Aranda',
       email: 'jesus.aranda@g.com',
+      pass1: '',
+      pass2: '',
       direccion: {
         distrito: 'Otario',
         ciudad: 'Otawa',
