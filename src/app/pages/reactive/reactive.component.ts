@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ValidadoresService } from '../../services/validadores.service';
 
 @Component({
   selector: 'app-reactive',
@@ -9,7 +10,10 @@ export class ReactiveComponent implements OnInit {
   // Declare Form
   reactiveForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private _validadorService: ValidadoresService
+  ) {
     this.createForm();
     this.cargarFormulario();
   }
@@ -62,7 +66,14 @@ export class ReactiveComponent implements OnInit {
       // Define form field and their validations
       // Initial value, [sync validators], async validators
       nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', [Validators.required, Validators.minLength(5)]],
+      apellido: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          this._validadorService.noAranda,
+        ],
+      ],
       email: ['', [Validators.required, Validators.email]],
       // FormGroupName => nested objects
       direccion: this.fb.group({
